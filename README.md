@@ -141,6 +141,15 @@ After you clone this project there are some files that need to run your Laravel 
 * Once the npm is installed , run the following command to compile JavaScript and CSS assets
   * *npm run dev*
 
+### 5. Launch the project
+
+* Run the following command
+  * *php artisan serve*
+* Viewing the application 
+   * Great! Now that you've installed all the necessary dependencies and the server is up and running, 
+     you can access the web application by pasting the following URL into your browser: 
+   * URL : *http://127.0.0.1:8000*
+   * This will allow you to view and start your own modification in project.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
