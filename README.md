@@ -28,6 +28,9 @@
     <li>
       <a href="#bonus-points">Bonus points</a>
     </li>
+    <li>
+      <a href="#project-setup">Project Setup</a>
+    </li>
   </ol>
 </details>
 
@@ -110,9 +113,23 @@ A: _Put your answer here_
 <!-- PROJECT SETUP AND INSTRUCTION   --> 
 ## Project Setup
 
+### After Cloning the Project 
+
+After you clone this project there are some files that need to run your Laravel Application . 
+Inside of your project directory run the following commands. 
 ### 1. Install Composer Dependencies
 
-Inside of your project directory run the following command: 
-
 *composer install* 
+
+### 2. Setup the Environment ( .env )
+
+* Duplicate the file :
+    * Duplicate or copy the ( .env.example ) file.
+
+* Rename the Copy : 
+    * Rename the duplicated file to (.env ) . 
+
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
