@@ -116,10 +116,11 @@ A: _Put your answer here_
 ### After Cloning the Project 
 
 After you clone this project there are some files that need to run your Laravel Application . 
-Inside of your project directory run the following commands. 
+
 ### 1. Install Composer Dependencies
 
-*composer install* 
+* Run the following command : 
+    * *composer install* 
 
 ### 2. Setup the Environment ( .env )
 
@@ -129,7 +130,10 @@ Inside of your project directory run the following commands.
 * Rename the Copy : 
     * Rename the duplicated file to (.env ) . 
 
+### 3. Generate Application Key 
 
+* Run the following command : 
+  *   *php artisan key: generate*
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
