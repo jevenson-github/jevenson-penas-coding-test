@@ -126,14 +126,21 @@ After you clone this project there are some files that need to run your Laravel 
 
 * Duplicate the file :
     * Duplicate or copy the ( .env.example ) file.
-
 * Rename the Copy : 
     * Rename the duplicated file to (.env ) . 
 
 ### 3. Generate Application Key 
 
 * Run the following command : 
-  *   *php artisan key: generate*
+  *  *php artisan key: generate*
+
+### 4. Install Node.js Dependencies if you are using JavaScript libraries or CSS ( Optional )
+
+* Run the following command:
+  * *npm install*
+* Once the npm is installed , run the following command to compile JavaScript and CSS assets
+  * *npm run dev*
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
