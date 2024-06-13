@@ -106,3 +106,13 @@ Q: The management requested a new feature where in the fictional e-commerce app 
 How would you go about implementing this feature in the backend?
 
 A: _Put your answer here_
+
+<!-- PROJECT SETUP AND INSTRUCTION   --> 
+## Project Setup
+
+### 1. Install Composer Dependencies
+
+Inside of your project directory run the following command: 
+
+*composer install* 
+
