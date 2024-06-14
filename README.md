@@ -143,8 +143,8 @@ After you clone this project there are some files that need to run your Laravel 
 
 ### 5. Migrate Database
 * Run the following command:
-  * php artisan migrate
-  
+  * *php artisan migrate*
+
 ### 6. Launch the project
 
 * Run the following command
