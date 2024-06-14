@@ -75,13 +75,26 @@ class ProductController extends Controller
                 }
 
         }
-
-
-
-
-
-
     }
+
+     // PRODUCT DETAILS 
+     public function productDetails($id){ 
+
+            $product_details = Products::find($id);  
+
+            // VALIDATE IF PRODUCT EXISTS 
+            if($product_details){
+                $data['message'] = "Product Found";
+                $data['product'] = $product_details;
+                $data['status'] = 200; 
+                return response()->json($data, 200);
+            }else { 
+                $data['message'] = "Product Not Found";
+                $data['status'] = 400; 
+                return response()->json($data, 400);
+            }
+           
+     }
 
 
 
