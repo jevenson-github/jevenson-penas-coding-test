@@ -142,16 +142,28 @@ class ProductController extends Controller
             $data['status'] = 400; 
             return response()->json($data, 400);
         }
-        
+    } 
 
 
+    //PRODUCT DELETE 
+    public function productDelete($id){
 
+        $product_delete_id = Products::find($id); 
 
+        // ENSURE PRODUCT ID IS EXISTING 
+        if($product_delete_id){ 
 
+            $product_delete_id->delete(); 
+            $data['message'] = "Product Deleted Successfuly"; 
+            $data['status'] = 200; 
+            return response()->json($data, 200);
 
-        
-         
+        }else {
 
+            $data['message'] = "Oops, Something went wrong in product delete"; 
+            $data['status'] = 500; 
+            return response()->json($data, 500);
+        }
     }
 
 }
