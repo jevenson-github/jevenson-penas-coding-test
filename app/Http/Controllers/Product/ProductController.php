@@ -96,6 +96,62 @@ class ProductController extends Controller
            
      }
 
+    // UPDATE PRODUCT 
+    public function productUpdate(Request $request , $id){ 
+      
+        $product_update_id = Products::find($id); 
 
+          // ENSURE THE PRODUCT ID IS PRESENT 
+          if($product_update_id){  
+
+                // PRODUCT VALIDATION 
+                $product_validation = Validator::make($request->all(),  [
+                    'product_name' => 'required|string|max:255', 
+                    'product_description' => 'required|string', 
+                    'product_price' => ['required','numeric']
+                ]);   
+
+                    
+                    if( $product_validation->fails()){
+                            $data['error'] = $product_validation->messages();
+                            $data['status'] = 422; 
+                            return response()->json($data, 422 );
+                    }
+                    else{ 
+
+                        // PERFORM PRODUCT UPDATE 
+                        $product_update_id->update($request->all());   
+
+                        //VALIDATE IF PRODUCT SUCCESSFULY UPDATED
+                        if ($product_update_id){ 
+                            
+                            $data['message'] = "Product Successfuly Updated"; 
+                            $data['status'] = 200; 
+                            return response()->json($data, 200);
+                            
+                        }else{
+                            $data['message'] = "Oops , Something went wrong in product update";
+                            $data['status'] = 500; 
+                            return response()->json($data, 500);
+                        } 
+                    }
+
+        } 
+        else { 
+            $data['message'] = "Product ID Not Found";
+            $data['status'] = 400; 
+            return response()->json($data, 400);
+        }
+        
+
+
+
+
+
+
+        
+         
+
+    }
 
 }
