@@ -141,7 +141,11 @@ After you clone this project there are some files that need to run your Laravel 
 * Once the npm is installed , run the following command to compile JavaScript and CSS assets
   * *npm run dev*
 
-### 5. Launch the project
+### 5. Migrate Database
+* Run the following command:
+  * php artisan migrate
+  
+### 6. Launch the project
 
 * Run the following command
   * *php artisan serve*
