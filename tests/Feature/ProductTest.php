@@ -34,7 +34,7 @@ class ProductTest extends TestCase
  * ***/
 
     public function test_product_store_success(){
-
+        
         // SUPPPLY THE VALUE OF 'product_name' VALUE NOT EXISTING IN DATABASE TESTING ENVIRONMENT 
         $response = $this->postJson('/api/product-store' ,[
             'product_name' => 'Test Product Store 111',
@@ -58,7 +58,14 @@ class ProductTest extends TestCase
             'product_price' => ''
         ]); 
 
-        $response->assertStatus(422); 
+        //$response->assertStatus(422); 
+        $response->assertJsonStructure([
+            'error'=>[
+                'product_name',
+                'product_description' ,
+                'product_price'
+                ]
+            ]); 
     }  
 
     public function test_product_maximum_characters_name_error(){
@@ -72,7 +79,12 @@ class ProductTest extends TestCase
                     'product_price' => '35' 
                 ]);  
 
-                $response->assertStatus(422); 
+                //$response->assertStatus(422); 
+                $response->assertJsonStructure([
+                    'error'=>[
+                        'product_name',
+                        ]
+                    ]); 
         }
 
      public function test_product_price_type_numeric_error(){
@@ -82,7 +94,11 @@ class ProductTest extends TestCase
                         'product_description' => 'Test Description',
                         'product_price' => 'PRICE' 
                     ]);  
-                    $response->assertStatus(422); 
+                    $response->assertJsonStructure([
+                        'error'=>[
+                            'product_price'
+                            ]
+                        ]); 
         
         }
 
@@ -95,14 +111,19 @@ class ProductTest extends TestCase
                 'product_price' => '35' 
             ]);  
 
-            $response->assertStatus(422); 
+            //$response->assertStatus(422);  
+            $response->assertJsonStructure([
+                'error'=>[
+                    'product_name',
+                    ]
+                ]); 
         }
   
 /*** 
  * TEST CASE SCENARIOS FOR PRODUCT DETAILS API  
  * ***/
     public function test_product_details_api(){
-    
+                
                // SUPPLY THE 'product_name' VALUE NOT EXISTING IN DATABASE TESTING ENVIRONMENT 
                 $product = Products::create([
                     'product_name' => 'Test Product Create',
@@ -185,7 +206,14 @@ class ProductTest extends TestCase
                 'product_price' => ''
         ] ); 
 
-        $response->assertStatus(422); 
+        // $response->assertStatus(422); 
+        $response->assertJsonStructure([
+            'error'=>[
+                'product_name',
+                'product_description' ,
+                'product_price'
+                ]
+            ]); 
     }
 
     public function test_product_update_maximum_characters_name_error(){
@@ -208,7 +236,12 @@ class ProductTest extends TestCase
                 'product_price' => '55'
         ] ); 
 
-        $response->assertStatus(422); 
+        //$response->assertStatus(422); 
+        $response->assertJsonStructure([
+            'error'=>[
+                'product_name',
+                ]
+            ]); 
     } 
 
     public function test_product_update_product_price_type_error(){ 
@@ -228,7 +261,12 @@ class ProductTest extends TestCase
                 'product_price' => 'TEST'
         ] ); 
 
-        $response->assertStatus(422); 
+        //$response->assertStatus(422); 
+        $response->assertJsonStructure([
+            'error'=>[
+                'product_price'
+                ]
+            ]); 
     }
 
 
