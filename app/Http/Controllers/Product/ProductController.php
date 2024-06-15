@@ -2,14 +2,22 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Http\Controllers\Controller;
-use App\Models\Product\Products; 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Models\Product\Products; 
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
-{
-    // FETCH PRODUCTS 
+{   
+   
+    // SET DEFAULT VALUE FOR CACHE KEY 
+   public function setCacheKeyGlobalVariable($id){
+         return "productDetails_cacheKey_".$id;
+    } 
+
+    // FETCH ALL PRODUCTS  
     public function productList(){ 
 
         // FETCH PRODUCT LIST AND PAGINATE 
@@ -80,12 +88,17 @@ class ProductController extends Controller
      // PRODUCT DETAILS 
      public function productDetails($id){ 
 
-            $product_details = Products::find($id);  
+            // $product_details = Products::find($id);  
 
-            // VALIDATE IF PRODUCT EXISTS 
-            if($product_details){
+             // PERFORM CACHING IMPLEMENTATION 
+            $product_details_cache = Cache::remember( $this->setCacheKeyGlobalVariable($id) , now()->addMinutes(2), function () use($id) {
+                    return Products::find($id); 
+            });
+            
+           //  VALIDATE IF PRODUCT EXISTS 
+            if( !empty($product_details_cache) ){
                 $data['message'] = "Product Found";
-                $data['product'] = $product_details;
+                $data['product'] =  $product_details_cache;
                 $data['status'] = 200; 
                 return response()->json($data, 200);
             }else { 
@@ -121,12 +134,18 @@ class ProductController extends Controller
 
                         // PERFORM PRODUCT UPDATE 
                         $product_update_id->update($request->all());   
+                        
+                        
 
                         //VALIDATE IF PRODUCT SUCCESSFULY UPDATED
                         if ($product_update_id){ 
                             
                             $data['message'] = "Product Successfuly Updated"; 
                             $data['status'] = 200; 
+
+                            //CLEAR THE CACHE TO REFRESH THE DETAILS IMMEDIATELY: OPTIONAL , IF YOU WANT TO  APPLY THIS JUST UNCOMMENT THE LINE OF CODE BELOW . 
+                           //Cache::forget($this->setCacheKeyGlobalVariable($id));  
+                            
                             return response()->json($data, 200);
                             
                         }else{
@@ -146,7 +165,7 @@ class ProductController extends Controller
 
 
     //PRODUCT DELETE 
-    public function productDelete($id){
+    public function productDelete($id){ 
 
         $product_delete_id = Products::find($id); 
 
@@ -155,7 +174,11 @@ class ProductController extends Controller
 
             $product_delete_id->delete(); 
             $data['message'] = "Product Deleted Successfuly"; 
-            $data['status'] = 200; 
+            $data['status'] = 200;  
+
+            //CLEAR THE CACHE TO REFRESH THE DETAILS IMMEDIATELY:  OPTIONAL , IF YOU WANT TO  APPLY THIS JUST UNCOMMENT THE LINE OF CODE BELOW . 
+            //Cache::forget($this->setCacheKeyGlobalVariable($id));
+
             return response()->json($data, 200);
 
         }else {
@@ -163,7 +186,38 @@ class ProductController extends Controller
             $data['message'] = "Oops, Something went wrong in product delete"; 
             $data['status'] = 500; 
             return response()->json($data, 500);
-        }
+        } 
+
     }
+
+
+    //SIMPLE IMPLEMENTATION OF CACHE IN LARAVEL  : FOR TESTING PURPOSE ONLY 
+    public function testCaching(){  
+
+       /* WAYS TO GET THE CACHE */
+            //Cache::get('key'); 
+            //$test = cache()->get(); 
+        
+        /* TO CREATE A CACHE USING ADD METHOD AND PUT METHOD */ 
+
+            // Cache::put('cachekey', "This should be a Cachekey", 10);
+            //Cache::add('cachekey2', "This should be a Cachekey 2 ", 10); 
+
+       /* TO REMOVE OF FORGET THE CREATED CACHE BUT THE FILE WILL STILL BE THERE EMPTY   */
+            //Cache::forget('cachekey');
+
+        /* TO DELETE ENTIRE CACHE IN OUR STORAGE  */
+            //Cache::flush();
+
+      /* TO CHECK IF A CACHE EXISTS */
+            //   if(Cache::has('cachekey')){
+            //         echo Cache::get('cachekey');
+            //   }
+        
+    /* USING CARBON TIME FORMAT  */
+             //  echo now()->addSeconds(2);
+
+    // dd(Cache::get( $this->setCacheKeyGlobalVariable(6)));
+    } 
 
 }
