@@ -155,5 +155,22 @@ After you clone this project there are some files that need to run your Laravel 
    * URL : *http://127.0.0.1:8000*
    * This will allow you to view and start your own modification in project.
 
+### 7. Testing Environment 
+
+*  Create separate testing file 
+  * *copy and paste your .env file and rename the file to .env.testing*
+*  Create separate database for testing 
+  * rename your database in .env.testing.
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=laravel_testing
+    DB_USERNAME=root
+    DB_PASSWORD=
+* Migrate the testing database 
+  * *php artisan migrate*
+* Run test
+  * *php artisan test*
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
