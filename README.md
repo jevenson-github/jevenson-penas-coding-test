@@ -160,7 +160,7 @@ After you clone this project there are some files that need to run your Laravel 
 *  Create separate testing file 
   * *copy and paste your .env file and rename the file to .env.testing*
 *  Create separate database for testing 
-  * rename your database in .env.testing.
+  * rename your database in .env.testing.    
     DB_CONNECTION=mysql  
     DB_HOST=127.0.0.1  
     DB_PORT=3306  
