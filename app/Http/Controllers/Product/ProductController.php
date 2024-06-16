@@ -21,7 +21,7 @@ class ProductController extends Controller
     public function productList(){ 
 
         // FETCH PRODUCT LIST AND PAGINATE 
-        $product_list = Products::simplePaginate(5);
+        $product_list = Products::orderBy('id','desc')->paginate(5);
         // $product_list = Products::paginate(5);  
         //$product_list = Products::all();
         
@@ -29,7 +29,6 @@ class ProductController extends Controller
         $data['message'] = count($product_list).' '.'Records Found'; 
         $data['status'] = 200; 
         $data['products'] = $product_list; 
-            
         return response()->json($data,200);
 
        }else { 
