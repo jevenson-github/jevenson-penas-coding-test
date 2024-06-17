@@ -165,7 +165,8 @@ After you clone this project there are some files that need to run your Laravel 
    * URL : *http://127.0.0.1:8000*
    * This will allow you to view and start your own modification in project.
 
-### 7. Testing Environment 
+
+## 7.  Test Laravel API with Artisan 
 
 *  Create separate testing file 
   * *copy and paste your .env file and rename the file to .env.testing*
@@ -181,6 +182,19 @@ After you clone this project there are some files that need to run your Laravel 
   * *php artisan migrate*
 * Run test
   * *php artisan test*
+
+
+## Test Laravel API with Postman   
+
+  To test your Laravel API with Postman, create a new request, set the method (GET, POST, etc.).  
+  Enter the URL (e.g., http://127.0.0.1:8000/api/product-list), add any necessary headers , body data or raw JSON , and click Send to view the response.    
+
+
+## Test Laravel API using the web template ( Optional )
+  
+ You can also test the web application on the client side by visiting http://127.0.0.1:8000.  
+ This will allow you to interact with the API functionalities through an interactive user interface. 
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
