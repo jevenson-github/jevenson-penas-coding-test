@@ -108,7 +108,17 @@ Others:
 Q: The management requested a new feature where in the fictional e-commerce app must have a "featured products" section.
 How would you go about implementing this feature in the backend?
 
-A: _Put your answer here_
+A: First of all if we want to implement a new feature on backend , we must involve discussion with the stakeholders      
+   about the needed requirements of products to be featured.         
+
+   After that , we can now or we can directly go to more technical side ; to implement the 'featured products' section:      
+   
+   - We will alter the table products and add column name 'featured_product', to do that we will create a new migration that alter the products table and add 'featured_product' column to fillable area in our model.  
+   - Or we can also create separate model and table/migration for featured product (optional).     
+   - We can add a new function to existing product controller or make another controller specific only for featured product.    
+   - Add Api Route for featured products to fetch.  
+   - Test the newly created 'featured products' functionality.  
+
 
 <!-- PROJECT SETUP AND INSTRUCTION   --> 
 ## Project Setup
