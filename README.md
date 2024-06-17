@@ -166,7 +166,7 @@ After you clone this project there are some files that need to run your Laravel 
    * This will allow you to view and start your own modification in project.
 
 
-## 7.  Test Laravel API with Artisan 
+## Test Laravel API with Artisan 
 
 *  Create separate testing file 
   * *copy and paste your .env file and rename the file to .env.testing*
