@@ -331,7 +331,7 @@ $(document).ready(function(){
                  Swal.fire({
                     position: "top-end",
                     icon: "success",
-                    title: "Product Successfuly Added",
+                    title: "Product Successfully Added",
                     showConfirmButton: false,
                     timer: 1500
                 }).then(function() {  
@@ -412,7 +412,7 @@ $(document).ready(function(){
                         $('#deleteProductName').text(response.product.product_name);  
                 }
             }); 
-        
+            
             $( ".delete-product" ).on( "click", function() {
                     $.ajax({
                         type:"DELETE",
@@ -423,8 +423,9 @@ $(document).ready(function(){
                         $("#deleteProductModal").modal('hide'); 
 
                         Swal.fire({
+                        position: "top-end",
                         icon: "success",
-                        title: "Product Successfuly Deleted",
+                        title: "Product Successfully Deleted",
                         showConfirmButton: false,
                         timer: 2000 }).then(function() {  
                                 location.reload();
@@ -476,7 +477,7 @@ $(document).ready(function(){
              Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Product Successfuly Updated",
+                title: "Product Successfully Updated",
                 showConfirmButton: false,
                 timer: 1500
             }).then(function() {  
