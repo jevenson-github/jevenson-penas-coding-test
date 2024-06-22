@@ -93,12 +93,15 @@ class ProductController extends Controller
             });
             
            //  VALIDATE IF PRODUCT EXISTS 
-            if( !empty($productDetailsCache) ){
+            if($productDetailsCache){ 
+
                 $data['message'] = "Product Found";
                 $data['product'] = $productDetailsCache;
                 $data['status'] = 200; 
                 return response()->json($data, 200);
+
             }else { 
+                 
                 $data['message'] = "Product Not Found";
                 $data['status'] = 400; 
                 return response()->json($data, 400);
