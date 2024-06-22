@@ -52,7 +52,8 @@ class ProductController extends Controller
             'product_description' => 'required|string', 
             'product_price' => ['required','numeric']
         ]);   
-     
+        
+        // CHECK IF VALIDATION FAILS 
         if( $productValidation->fails()){  
            
             $data['error'] = $productValidation->messages(); 
@@ -67,7 +68,7 @@ class ProductController extends Controller
                     'product_price' => $request->product_price, 
                 ]);   
 
-                //CHECK IF PRODUCT IS INSERTED 
+                //CHECK IF PRODUCT IS INSERTED SUCCESSFULY 
                 if($productInsert){ 
                      $data['message'] = "Product Created Successfuly ."; 
                      $data['status'] = 201; 
