@@ -18,17 +18,17 @@ class ProductController extends Controller
     } 
 
     // FETCH ALL PRODUCTS  
-    public function productList(){ 
+    public function index(){ 
 
         // FETCH PRODUCT LIST AND PAGINATE 
-        $product_list = Products::orderBy('id','desc')->paginate(5);
+        $productList = Products::orderBy('id','desc')->paginate(5);
         // $product_list = Products::paginate(5);  
         //$product_list = Products::all();
         
-       if(count($product_list)){  
-        $data['message'] = count($product_list).' '.'Records Found'; 
+       if(count($productList)){  
+        $data['message'] = count($productList).' '.'Records Found'; 
         $data['status'] = 200; 
-        $data['products'] = $product_list; 
+        $data['products'] = $productList; 
         return response()->json($data,200);
 
        }else { 
@@ -37,47 +37,43 @@ class ProductController extends Controller
         $data['status'] = 404; 
 
         return response()->json($data);
-
-         // OR WE CAN RETURN THE RESPONSE JUST LIKE THIS : 
-        // return response()->json(['message'=>'No Records Found' , 'status'=> 404 ],404);
        }
      
     } 
 
-
     //CREATE PRODUCT 
-    public function productCreate(Request $request){ 
+    public function store(Request $request){ 
         
         // PRODUCT VALIDATION 
-        $product_validation = Validator::make($request->all(),  [
+        $productValidation = Validator::make($request->all(),  [
             'product_name' => 'required|string|max:255|unique:products', 
             'product_description' => 'required|string', 
             'product_price' => ['required','numeric']
         ]);   
      
-        if($product_validation->fails()){  
+        if( $productValidation->fails()){  
            
-            $data['error'] = $product_validation->messages(); 
+            $data['error'] = $productValidation->messages(); 
             $data['status'] = 422; 
             return response()->json($data, 422);
         }else{   
 
                 // INSERTS PRODUCT 
-                $product_insert = Products::create([
+                $productInsert = Products::create([
                     'product_name' => $request->product_name, 
                     'product_description' => $request->product_description, 
                     'product_price' => $request->product_price, 
                 ]);   
 
                 //CHECK IF PRODUCT IS INSERTED 
-                if($product_insert){ 
+                if($productInsert){ 
                      $data['message'] = "Product Created Successfuly ."; 
                      $data['status'] = 201; 
                      return response()->json($data, 201);
                 }else {
                     $data['message'] = "Oops , Something went wrong in product creation ."; 
                     $data['status'] = 500; 
-
+                    
                     return response()->json($data, 500);
                 }
 
@@ -85,19 +81,18 @@ class ProductController extends Controller
     }
 
      // PRODUCT DETAILS 
-     public function productDetails($id){ 
+     public function show(Products $product){ 
 
-            // $product_details = Products::find($id);  
-
+    
              // PERFORM CACHING IMPLEMENTATION 
-            $product_details_cache = Cache::remember( $this->setCacheKeyGlobalVariable($id) , now()->addMinutes(2), function () use($id) {
-                    return Products::find($id); 
+            $productDetailsCache = Cache::remember( $this->setCacheKeyGlobalVariable($product->id) , now()->addMinutes(2), function () use($product) {
+                    return Products::find($product->id); 
             });
             
            //  VALIDATE IF PRODUCT EXISTS 
-            if( !empty($product_details_cache) ){
+            if( !empty($productDetailsCache) ){
                 $data['message'] = "Product Found";
-                $data['product'] =  $product_details_cache;
+                $data['product'] = $productDetailsCache;
                 $data['status'] = 200; 
                 return response()->json($data, 200);
             }else { 
@@ -109,35 +104,30 @@ class ProductController extends Controller
      }
 
     // UPDATE PRODUCT 
-    public function productUpdate(Request $request , $id){ 
+    public function update(Request $request , Products $product){ 
       
-        $product_update_id = Products::find($id); 
-
-          // ENSURE THE PRODUCT ID IS PRESENT 
-          if($product_update_id){  
+          if($product->id){   
 
                 // PRODUCT VALIDATION 
-                $product_validation = Validator::make($request->all(),  [
+                $productValidation = Validator::make($request->all(),  [
                     'product_name' => 'required|string|max:255', 
                     'product_description' => 'required|string', 
                     'product_price' => ['required','numeric']
                 ]);   
 
                     
-                    if( $product_validation->fails()){
-                            $data['error'] = $product_validation->messages();
+                    if($productValidation->fails()){
+                            $data['error'] = $productValidation->messages();
                             $data['status'] = 422; 
                             return response()->json($data, 422 );
                     }
                     else{ 
 
                         // PERFORM PRODUCT UPDATE 
-                        $product_update_id->update($request->all());   
+                         $product->update($request->all());   
                         
-                        
-
                         //VALIDATE IF PRODUCT SUCCESSFULY UPDATED
-                        if ($product_update_id){ 
+                        if ($product){ 
                             
                             $data['message'] = "Product Successfuly Updated"; 
                             $data['status'] = 200; 
@@ -164,14 +154,11 @@ class ProductController extends Controller
 
 
     //PRODUCT DELETE 
-    public function productDelete($id){ 
+    public function destroy(Products $product){ 
+        
+        if($product->id){ 
 
-        $product_delete_id = Products::find($id); 
-
-        // ENSURE PRODUCT ID IS EXISTING 
-        if($product_delete_id){ 
-
-            $product_delete_id->delete(); 
+            $product->delete(); 
             $data['message'] = "Product Deleted Successfuly"; 
             $data['status'] = 200;  
 

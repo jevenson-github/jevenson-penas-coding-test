@@ -209,17 +209,11 @@ $(document).ready(function(){
 
         function fetchProductList(page) {
             $.ajax({
-                url: 'http://127.0.0.1:8000/api/product-list', 
+                url: 'http://127.0.0.1:8000/api/products', 
                 type: 'GET',
-                data: { page: page },
+                data: { page: page },     // THIS REFERES TO PAGINATION LINK OF : http://127.0.0.1:8000/api/products?page=1 
                 success: function(response) { 
-
-                //    console.log(response);
-                //    console.log(response.products.data);
-                //    console.log(response.products.first_page_url);
-                //    console.log(response.products.next_page_url); 
-                //    console.log(response.products.current_page);
-                   
+                  
                     $('#total-products').text(response.message);
                     // PAGINATED PRODUCTS DATA 
                     var products = response.products.data; 
@@ -316,14 +310,11 @@ $(document).ready(function(){
         }
         
             $.ajax({
-                url: 'http://127.0.0.1:8000/api/product-store',
+                url: 'http://127.0.0.1:8000/api/products',
                 type: 'POST',
                 data: JSON.stringify(formData),
                 contentType: 'application/json',
                 success: function(response) {
-
-                //    console.log(response); 
-                //    alert(response); 
 
                 // HIDE MODAL AFTER DELETE 
                 $("#addProductModal").modal('hide');
@@ -387,7 +378,7 @@ $(document).ready(function(){
             // PERFORM REQUEST 
             $.ajax({
                 type: "GET",
-                url: "http://127.0.0.1:8000/api/product-details/"+product_id,
+                url: "http://127.0.0.1:8000/api/products/"+product_id,
                 success: function (response) {
                         console.log(response); 
                         $('.productName').text(response.product.product_name); 
@@ -405,7 +396,7 @@ $(document).ready(function(){
         // PERFORM REQUEST TO GET THE ID AND PRODUCT DETAILS 
         $.ajax({
                 type: "GET",
-                url: "http://127.0.0.1:8000/api/product-details/"+product_id,
+                url: "http://127.0.0.1:8000/api/products/"+product_id,
                 success: function (response) {
                         console.log(response); 
 
@@ -416,7 +407,7 @@ $(document).ready(function(){
             $( ".delete-product" ).on( "click", function() {
                     $.ajax({
                         type:"DELETE",
-                        url: "http://127.0.0.1:8000/api/product-delete/"+product_id,
+                        url: "http://127.0.0.1:8000/api/products/"+product_id,
                         success: function (response) { 
 
                         // HIDE MODAL AFTER DELETE 
@@ -445,7 +436,7 @@ $(document).ready(function(){
          // PERFORM REQUEST TO POPULATE THE FORM 
          $.ajax({
             type: "GET",
-            url: "http://127.0.0.1:8000/api/product-details/"+product_id,
+            url: "http://127.0.0.1:8000/api/products/"+product_id,
             success: function (response) {
                     console.log(response); 
                     $('#product_name_update').val(response.product.product_name); 
@@ -465,7 +456,7 @@ $(document).ready(function(){
         }
     
         $.ajax({
-            url: 'http://127.0.0.1:8000/api/product-update/'+product_id,
+            url: 'http://127.0.0.1:8000/api/products/'+product_id+'',
             type: 'PUT',
             data: JSON.stringify(formData),
             contentType: 'application/json',

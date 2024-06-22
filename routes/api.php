@@ -19,13 +19,13 @@ use App\Http\Controllers\Product\ProductController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 }); 
-
-Route::get('/product-list', [ProductController::class , 'productList']); 
-Route::post('/product-store', [ProductController::class, 'productCreate']); 
-Route::get('/product-details/{id}', [ProductController::class , 'productDetails']); 
-Route::put('/product-update/{id}', [ProductController::class, 'productUpdate']); 
-Route::delete('/product-delete/{id}', [ProductController::class, 'productDelete']); 
-
+ 
+// APPYLING ROUTE NAME BEST PRACTICES 
+Route::get('/products', [ProductController::class, 'index'])->name('products.index'); 
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show'); 
+Route::post('/products', [ProductController::class, 'store'])->name('products.store'); 
+Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update'); 
+Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy'); 
 
 //SIMPLE IMPLEMENTATION OF CACHE IN LARAVEL  : FOR TESTING PURPOSE ONLY 
 Route::get('/test-caching',[ProductController::class,'testCaching']); 
