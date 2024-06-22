@@ -182,34 +182,4 @@ class ProductController extends Controller
 
     }
 
-
-    //SIMPLE IMPLEMENTATION OF CACHE IN LARAVEL  : FOR TESTING PURPOSE ONLY 
-    public function testCaching(){  
-
-       /* WAYS TO GET THE CACHE */
-            //Cache::get('key'); 
-            //$test = cache()->get(); 
-        
-        /* TO CREATE A CACHE USING ADD METHOD AND PUT METHOD */ 
-
-            // Cache::put('cachekey', "This should be a Cachekey", 10);
-            //Cache::add('cachekey2', "This should be a Cachekey 2 ", 10); 
-
-       /* TO REMOVE OF FORGET THE CREATED CACHE BUT THE FILE WILL STILL BE THERE EMPTY   */
-            //Cache::forget('cachekey');
-
-        /* TO DELETE ENTIRE CACHE IN OUR STORAGE  */
-            //Cache::flush();
-
-      /* TO CHECK IF A CACHE EXISTS */
-            //   if(Cache::has('cachekey')){
-            //         echo Cache::get('cachekey');
-            //   }
-        
-    /* USING CARBON TIME FORMAT  */
-             //  echo now()->addSeconds(2);
-
-    // dd(Cache::get( $this->setCacheKeyGlobalVariable(6)));
-    } 
-
 }

@@ -26,6 +26,3 @@ Route::get('/products/{product}', [ProductController::class, 'show'])->name('pro
 Route::post('/products', [ProductController::class, 'store'])->name('products.store'); 
 Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update'); 
 Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy'); 
-
-//SIMPLE IMPLEMENTATION OF CACHE IN LARAVEL  : FOR TESTING PURPOSE ONLY 
-Route::get('/test-caching',[ProductController::class,'testCaching']); 
