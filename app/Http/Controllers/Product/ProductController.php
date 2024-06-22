@@ -22,21 +22,23 @@ class ProductController extends Controller
 
         // FETCH PRODUCT LIST AND PAGINATE 
         $productList = Products::orderBy('id','desc')->paginate(5);
-        // $product_list = Products::paginate(5);  
-        //$product_list = Products::all();
         
-       if(count($productList)){  
-        $data['message'] = count($productList).' '.'Records Found'; 
+        // CHECK IF PRODUCTS ARE FOUND 
+       if($productList->count()){    
+
+        // PREPARE SUCCESS RESPONSE 
+        $data['message'] = $productList->count().' '.'Records Found'; 
         $data['status'] = 200; 
         $data['products'] = $productList; 
         return response()->json($data,200);
 
        }else { 
 
+        // PREPARE FAILURE RESPONSE 
         $data['message'] = 'No Records Found'; 
         $data['status'] = 404; 
 
-        return response()->json($data);
+        return response()->json($data,404);
        }
      
     } 
@@ -155,7 +157,7 @@ class ProductController extends Controller
 
     //PRODUCT DELETE 
     public function destroy(Products $product){ 
-        
+
         if($product->id){ 
 
             $product->delete(); 
