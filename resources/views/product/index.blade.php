@@ -263,16 +263,19 @@ $(document).ready(function(){
                         paginationHtml += '         <a href="#" class="page-link" data-page="' + (response.products.current_page - 1) + '">Previous</a> ';
                         paginationHtml += '  </li>'; 
                     }
-                    // for (var i = 1; i <= response.products.last_page; i++) { 
-                        
-                    //         if (response.products.next_page_url) {
-                    //             paginationHtml += '<li class="page-item">'; 
-                    //             paginationHtml += '<a href="#" class="page-link" data-page="' +i+ '">'+ i+'</a>'; 
-                    //             paginationHtml += '</li>'; 
-                          
-                    //     } 
+                    for (var i = 1; i <= response.products.last_page; i++) { 
 
-                    // }
+                            // USE TERNARY OPERATOR TO DETERMINE THE CURRENT PAGE ACTIVE 
+                            var activePage  = response.products.current_page === i ? 'active' : '';  
+
+                            if (response.products.next_page_url) {
+                                paginationHtml += '<li class="page-item '+activePage + '">'; 
+                                paginationHtml += '<a href="#" class="page-link" data-page="' +i+ '">'+ i+'</a>'; 
+                                paginationHtml += '</li>'; 
+                          
+                        } 
+
+                    }
                     // paginationHtml += 'Current Page : '+ response.products.current_page;
                     if (response.products.next_page_url) { 
                         paginationHtml += '<li class="page-item">'; 
